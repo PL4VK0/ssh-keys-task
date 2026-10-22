@@ -7,7 +7,7 @@ on:
 
 jobs:
   check-ssh-keys:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout Repository
@@ -41,9 +41,3 @@ jobs:
         run: |
           generated_key=$(ssh-keygen -y -f private_key_two | cut -d' ' -f 2)
           cat ./keys/task2/key.pub | grep $generated_key
-
-      - name: Final Step
-        env:
-          GH_TOKEN: ${{ steps.generate-token.outputs.token }}
-        run: |
-          gh repo edit $GITHUB_REPOSITORY --visibility private --accept-visibility-change-consequences
